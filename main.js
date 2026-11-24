@@ -14,7 +14,7 @@
   };
   let initial = 'fr';
   try { initial = localStorage.getItem('ck-lang') || (navigator.language || 'fr').slice(0, 2); } catch (e) {}
-  setLang(initial === 'en' ? 'en' : 'fr');
+  setLang(['en', 'pt'].includes(initial) ? initial : 'fr');
   document.querySelectorAll('[data-set-lang]').forEach(b =>
     b.addEventListener('click', () => setLang(b.dataset.setLang)));
 

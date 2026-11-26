@@ -362,6 +362,9 @@ html[data-lang="pt"] [lang="fr"]:not(html), html[data-lang="pt"] [lang="en"]:not
    (all of it is switched off by the reduced-motion rule above)
    ========================================================= */
 
+/* island tour: vertical scroll stays native, horizontal swipes go to main.js */
+.tour__sticky { touch-action: pan-y; }
+
 /* scroll progress */
 .progress {
   position: fixed; inset: 0 0 auto 0; height: 3px; z-index: 60;

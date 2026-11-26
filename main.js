@@ -195,8 +195,34 @@
     ticking = false;
   };
 
+  /* ---------- Island tour: swipe left / right to change island (phones) ---------- */
+  const goToStop = k => {
+    const n = stops.length;
+    k = Math.max(0, Math.min(n - 1, k));
+    const span = tour.offsetHeight - innerHeight;
+    // land in the "hold" part of each segment, where the pass sits still
+    const p = k === n - 1 ? 1 : (k + 0.2) / (n - 1);
+    const top = tour.getBoundingClientRect().top + scrollY + p * span;
+    scrollTo({ top: Math.round(top), behavior: 'smooth' });
+  };
+  const sticky = tour.querySelector('.tour__sticky');
+  let sx = 0, sy = 0, swiping = false;
+  sticky.addEventListener('touchstart', e => {
+    if (e.touches.length !== 1) { swiping = false; return; }
+    sx = e.touches[0].clientX; sy = e.touches[0].clientY; swiping = true;
+  }, { passive: true });
+  sticky.addEventListener('touchend', e => {
+    if (!swiping) return;
+    swiping = false;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - sx, dy = t.clientY - sy;
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.3) {
+      goToStop(active + (dx < 0 ? 1 : -1));
+    }
+  }, { passive: true });
+
   let ticking = false;
-  const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(frame); } };
+  const onScroll =() => { if (!ticking) { ticking = true; requestAnimationFrame(frame); } };
   addEventListener('scroll', onScroll, { passive: true });
   addEventListener('resize', onScroll);
   frame();

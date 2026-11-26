@@ -13,6 +13,8 @@
 </head>
 <body>
 
+<div class="progress" aria-hidden="true"></div>
+
 <a class="skip" href="#escales"><span lang="fr">Aller au contenu</span><span lang="en">Skip to content</span><span lang="pt">Ir para o conteúdo</span></a>
 
 <!-- NAV -->
@@ -34,7 +36,7 @@
       <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
       <button type="button" data-set-lang="pt" aria-pressed="false">PT</button>
     </div>
-    <a class="btn btn--sun btn--sm" href="#reserver"><span lang="fr">Réserver</span><span lang="en">Book</span><span lang="pt">Reservar</span></a>
+    <a class="btn btn--sun btn--sm btn--pulse" href="#reserver"><span lang="fr">Réserver</span><span lang="en">Book</span><span lang="pt">Reservar</span></a>
   </div>
 </header>
 
@@ -55,7 +57,7 @@
     <p class="kicker"><span lang="fr">Traiteur caribéen · Lisbonne</span><span lang="en">Caribbean catering · Lisbon</span><span lang="pt">Catering caribenho · Lisboa</span></p>
     <h1 id="hero-title" class="hero__title">
       <span class="line"><span lang="fr">La Caraïbe</span><span lang="en">The Caribbean</span><span lang="pt">As Caraíbas</span></span>
-      <span class="line"><span lang="fr">dans l'assiette.</span><span lang="en">on your plate.</span><span lang="pt">no seu prato.</span></span>
+      <span class="line line--scribble"><span lang="fr">dans l'assiette.<svg class="scribble" viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4 15 C 60 6 118 20 176 11 S 262 7 296 13"/></svg></span><span lang="en">on your plate.<svg class="scribble" viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4 15 C 60 6 118 20 176 11 S 262 7 296 13"/></svg></span><span lang="pt">no seu prato.<svg class="scribble" viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4 15 C 60 6 118 20 176 11 S 262 7 296 13"/></svg></span></span>
     </h1>
     <p class="hero__kreyol">« Sé konsa nou yé ! »</p>
     <p class="hero__motto"><span lang="fr">Gou péyi, savè solèy : le goût du pays, saveur du soleil.</span><span lang="en">Gou péyi, savè solèy: the taste of the homeland, the flavour of the sun.</span><span lang="pt">Gou péyi, savè solèy: o sabor da terra, o sabor do sol.</span></p>
@@ -64,9 +66,23 @@
       <span lang="en">Homemade Creole food, island rums and barbecues to the sound of soca and konpa. For your parties, your teams, or just a Sunday in the sun.</span><span lang="pt">Cozinha crioula caseira, rumes das ilhas e churrascos ao som de soca e konpa. Para as suas festas, as suas equipas, ou apenas um domingo ao sol.</span>
     </p>
     <div class="hero__cta">
-      <a class="btn btn--ink" href="#reserver"><span lang="fr">Demander un devis</span><span lang="en">Get a quote</span><span lang="pt">Pedir orçamento</span></a>
+      <a class="btn btn--ink btn--pulse" href="#reserver"><span lang="fr">Demander un devis</span><span lang="en">Get a quote</span><span lang="pt">Pedir orçamento</span></a>
       <a class="btn btn--ghost" href="#escales"><span lang="fr">Faire le tour des îles ↓</span><span lang="en">Tour the islands ↓</span><span lang="pt">Volta às ilhas ↓</span></a>
     </div>
+  </div>
+
+  <!-- Hero photo: Unsplash License (photo by Jopopz Tallorin, unsplash.com/photos/ofXy_NRwyjI).
+       To use the client's own photo, replace the src. If the image fails, the warm gradient + hibiscus shows instead. -->
+  <div class="hero__media">
+    <figure class="hero__photo">
+      <svg class="hero__photo-fallback" aria-hidden="true" viewBox="0 0 200 200"><use href="#hibiscus"/></svg>
+      <img src="assets/hero-grill.jpg" alt="Poulet mariné aux épices qui grille au barbecue, dans la fumée" width="1200" height="801" fetchpriority="high" onerror="this.remove()">
+    </figure>
+    <aside class="hero__card" aria-label="Réserver">
+      <p class="hero__card-k"><span lang="fr">Traiteur · Lisbonne &amp; Porto</span><span lang="en">Catering · Lisbon &amp; Porto</span><span lang="pt">Catering · Lisboa e Porto</span></p>
+      <p class="hero__card-price"><small><span lang="fr">dès</span><span lang="en">from</span><span lang="pt">desde</span></small> 30 €<small><span lang="fr"> / pers.</span><span lang="en"> / guest</span><span lang="pt"> / pessoa</span></small></p>
+      <a class="hero__card-cta" href="#reserver"><span lang="fr">Réserver</span><span lang="en">Book now</span><span lang="pt">Reservar</span> <span aria-hidden="true">→</span></a>
+    </aside>
   </div>
 </section>
 
@@ -195,16 +211,16 @@
       <span class="offer__num">01</span>
       <h3><span lang="fr">Traiteur</span><span lang="en">Catering</span><span lang="pt">Catering</span></h3>
       <p><span lang="fr">Anniversaires, mariages, repas d'équipe. Buffet ou service à l'assiette, cuisine en direct possible.</span><span lang="en">Birthdays, weddings, team lunches. Buffet or plated, live cooking on request.</span><span lang="pt">Aniversários, casamentos, almoços de equipa. Buffet ou serviço à mesa, cozinha ao vivo a pedido.</span></p>
-      <p class="offer__price"><span lang="fr">dès 30 € / personne</span><span lang="en">from €30 / person</span><span lang="pt">desde 30 € / pessoa</span></p>
+      <p class="offer__price"><span lang="fr">dès <span class="count" data-count="30">30</span> € / personne</span><span lang="en">from €<span class="count" data-count="30">30</span> / person</span><span lang="pt">desde <span class="count" data-count="30">30</span> € / pessoa</span></p>
       <p class="offer__note"><span lang="fr">2 personnes minimum. Tarif sur devis selon le lieu, le menu et la taille du groupe. Lisbonne, Porto et environs.</span><span lang="en">2 guests minimum. Priced by quote depending on venue, menu and group size. Lisbon, Porto and surroundings.</span><span lang="pt">Mínimo 2 pessoas. Preço por orçamento consoante o local, o menu e o tamanho do grupo. Lisboa, Porto e arredores.</span></p>
     </article>
     <article class="offer offer--feature">
       <span class="offer__num">02</span>
       <h3><span lang="fr">Dégustation de rhum</span><span lang="en">Rum tasting</span><span lang="pt">Prova de rum</span></h3>
       <ul class="offer__tiers">
-        <li><b>25 €</b><span lang="fr">3 rhums blancs + 3 plats</span><span lang="en">3 white rums + 3 dishes</span><span lang="pt">3 rumes brancos + 3 pratos</span></li>
-        <li><b>35 €</b><span lang="fr">3 rhums vieux + 3 plats</span><span lang="en">3 aged rums + 3 dishes</span><span lang="pt">3 rumes velhos + 3 pratos</span></li>
-        <li><b>40 €</b><span lang="fr">6 rhums + 5 plats, l'expérience complète</span><span lang="en">6 rums + 5 dishes, the full experience</span><span lang="pt">6 rumes + 5 pratos, a experiência completa</span></li>
+        <li><b><span class="count" data-count="25">25</span> €</b><span lang="fr">3 rhums blancs + 3 plats</span><span lang="en">3 white rums + 3 dishes</span><span lang="pt">3 rumes brancos + 3 pratos</span></li>
+        <li><b><span class="count" data-count="35">35</span> €</b><span lang="fr">3 rhums vieux + 3 plats</span><span lang="en">3 aged rums + 3 dishes</span><span lang="pt">3 rumes velhos + 3 pratos</span></li>
+        <li><b><span class="count" data-count="40">40</span> €</b><span lang="fr">6 rhums + 5 plats, l'expérience complète</span><span lang="en">6 rums + 5 dishes, the full experience</span><span lang="pt">6 rumes + 5 pratos, a experiência completa</span></li>
       </ul>
       <p class="offer__note"><span lang="fr">De 25 à 50 € selon la gamme de produits et la quantité souhaitée. Histoire du rhum racontée et cuisine en direct.</span><span lang="en">From €25 to €50 depending on the range of products and quantity. The story of rum, told live, with live cooking.</span><span lang="pt">De 25 a 50 € consoante a gama de produtos e a quantidade. A história do rum contada ao vivo, com cozinha ao vivo.</span></p>
     </article>
@@ -212,7 +228,7 @@
       <span class="offer__num">03</span>
       <h3><span lang="fr">Barbecue du dimanche</span><span lang="en">Sunday barbecue</span><span lang="pt">Churrasco de domingo</span></h3>
       <p><span lang="fr">Le lieu peut changer : retrouvez le prochain dans l'agenda. Boissons non incluses, sans dégustation.</span><span lang="en">The venue can change: find the next one in the events list. Drinks not included, no tasting.</span><span lang="pt">O local pode mudar: veja o próximo na agenda. Bebidas não incluídas, sem prova.</span></p>
-      <p class="offer__price">15 € <span lang="fr">/ personne</span><span lang="en">/ person</span><span lang="pt">/ pessoa</span></p>
+      <p class="offer__price"><span class="count" data-count="15">15</span> € <span lang="fr">/ personne</span><span lang="en">/ person</span><span lang="pt">/ pessoa</span></p>
     </article>
   </div>
   <p class="offers__allergy"><span lang="fr">Allergies ou régime particulier ? Prévenez-nous à l'avance pour adapter les plats. Il y a toujours une option végétarienne.</span><span lang="en">Allergies or special diet? Tell us in advance and we'll adapt the dishes. There is always a vegetarian option.</span><span lang="pt">Alergias ou dieta especial? Avise-nos com antecedência e adaptamos os pratos. Há sempre uma opção vegetariana.</span></p>

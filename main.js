@@ -44,6 +44,7 @@
   const dots = [...tour.querySelectorAll('.route li')];
   const route = tour.querySelector('.route');
   const depthEls = [...document.querySelectorAll('[data-depth]')];
+  const heroPhoto = hero.querySelector('.hero__photo');
 
   /* ---------- Reveal on view ---------- */
   const revealTargets = document.querySelectorAll('.section-head, .offer, .event, .kitchen__text, .rum h2, .book__card');
@@ -60,11 +61,80 @@
     if (entries[0].isIntersecting) { shelf.classList.add('is-filled'); obs.disconnect(); }
   }, { threshold: 0.4 }).observe(shelf);
 
+  /* ---------- Scroll progress bar ---------- */
+  const setProgress = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    root.style.setProperty('--progress', max > 0 ? clamp(scrollY / max).toFixed(4) : 0);
+  };
+  addEventListener('scroll', setProgress, { passive: true });
+  addEventListener('resize', setProgress);
+  setProgress();
+
+  /* ---------- Smooth scroll for in-page links ---------- */
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href');
+      const target = id.length > 1 && document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      history.pushState(null, '', id);
+    });
+  });
+
+  /* ---------- Draw-on checkmarks in the tasting tiers ---------- */
+  document.querySelectorAll('.offer__tiers').forEach(list => {
+    list.classList.add('has-ticks');
+    list.querySelectorAll('li').forEach(li => li.insertAdjacentHTML('afterbegin',
+      '<svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M4 12.5l5 5L20 6.5"/></svg>'));
+    new IntersectionObserver((entries, obs) => {
+      if (entries[0].isIntersecting) { list.classList.add('is-drawn'); obs.disconnect(); }
+    }, { threshold: 0.5 }).observe(list);
+  });
+
+  /* ---------- Count-up on prices (final value stays in the HTML) ---------- */
+  if (!reduce) {
+    const countUp = el => {
+      const end = +el.dataset.count, t0 = performance.now(), dur = 1100;
+      const tick = now => {
+        const k = clamp((now - t0) / dur);
+        el.textContent = Math.round(end * (1 - Math.pow(1 - k, 3)));
+        if (k < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    const countIO = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { countUp(e.target); countIO.unobserve(e.target); } });
+    }, { threshold: 0.6 });
+    document.querySelectorAll('.count[data-count]').forEach(el => countIO.observe(el));
+  }
+
   if (reduce) {
     stops.forEach(s => s.classList.add('is-stamped'));
     addEventListener('scroll', () => nav.classList.toggle('is-solid', scrollY > 40), { passive: true });
     return;
   }
+
+  /* ---------- Sparkles on button hover ---------- */
+  document.querySelectorAll('.btn, .channel').forEach(btn => {
+    let last = 0;
+    btn.addEventListener('pointerenter', e => {
+      if (e.pointerType === 'touch' || performance.now() - last < 600) return;
+      last = performance.now();
+      for (let i = 0; i < 6; i++) {
+        const s = document.createElement('span');
+        s.className = 'spark';
+        const a = Math.random() * Math.PI * 2, r = 22 + Math.random() * 26;
+        s.style.setProperty('--sx', (15 + Math.random() * 70) + '%');
+        s.style.setProperty('--sy', (20 + Math.random() * 60) + '%');
+        s.style.setProperty('--dx', Math.cos(a) * r + 'px');
+        s.style.setProperty('--dy', Math.sin(a) * r + 'px');
+        s.style.animationDelay = (i * 40) + 'ms';
+        s.addEventListener('animationend', () => s.remove());
+        btn.appendChild(s);
+      }
+    });
+  });
 
   /* ---------- Scroll timeline ---------- */
   let active = -1;
@@ -90,6 +160,12 @@
     palmL.style.transform = `translate3d(0, ${hp * -6}vh, 0) rotate(${hp * -4}deg)`;
     palmR.style.transform = `scaleX(-1) translate3d(0, ${hp * -14}vh, 0)`;
     hib.style.transform = `translate3d(0, ${hp * -28}vh, 0) rotate(${hp * 90}deg)`;
+    // Hero photo: frame drifts up a touch, picture inside drifts down (gentle parallax)
+    if (heroPhoto) {
+      heroPhoto.style.translate = `0 ${hp * -7}vh`;
+      const img = heroPhoto.querySelector('img');
+      if (img) img.style.transform = `translate3d(0, ${hp * 6}%, 0)`;
+    }
 
     // Island tour: horizontal rail with a hold on each boarding pass
     const r = tour.getBoundingClientRect();

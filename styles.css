@@ -548,3 +548,10 @@ section[id]:not(.tour) { scroll-margin-top: 64px; }
   .hero__photo img { scale: 1.04; }
   .spark { display: none; }
 }
+.privacy-page { background: var(--ink); min-height: 100vh; }
+.privacy-bar { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 20px var(--gutter); }
+.privacy-bar__back { color: var(--sun); text-decoration: none; font-weight: 600; }
+.privacy-page .privacy { padding-top: 24px; }
+.privacy-bar .lang { border-color: rgba(255,248,234,.5); }
+.privacy-bar .lang button { color: rgba(255,248,234,.85); }
+.privacy-bar .lang button[aria-pressed="true"] { background: var(--sun); color: var(--ink); }
